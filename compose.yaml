@@ -1,0 +1,31 @@
+services:
+  casino1:
+    build:
+      context: ./services/casino1
+    ports:
+      - "3000:3000"
+    init: true
+
+  nginx:
+    build:
+      context: ./services/nginx
+    volumes:
+      - frontpages:/var/www/nginx:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - casino1
+    init: true
+
+  sftp:
+    build:
+      context: ./services/sftp
+    volumes:
+      - frontpages:/home
+    command: designer:pass:1001
+    ports:
+      - "2222:22"
+    init: true
+
+volumes:
+  frontpages: 
