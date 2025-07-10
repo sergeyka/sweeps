@@ -11,3 +11,13 @@ add:
 ```
 to your next.config.ts
 
+to run the development version:
+```
+cd services/casino1/app
+next dev 
+```
+
+to run in production mode:
+```
+docker compose up
+```
