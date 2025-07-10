@@ -1,6 +1,6 @@
 Installation:
 ```
-cd services/casino1/app
+cd services/casino1/
 npx create-next-app@latest app --typescript
 ```
 
