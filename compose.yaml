@@ -4,6 +4,17 @@ services:
       context: ./services/casino1
     ports:
       - "3000:3000"
+    depends_on:
+      - postgres
+    init: true
+
+  admin:
+    build:
+      context: ./services/admin
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
     init: true
 
   nginx:
@@ -13,8 +24,6 @@ services:
       - frontpages:/var/www/nginx:ro
     ports:
       - "80:80"
-    depends_on:
-      - casino1
     init: true
 
   sftp:
@@ -27,5 +36,17 @@ services:
       - "2222:22"
     init: true
 
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   frontpages: 
+  postgres_data: 
